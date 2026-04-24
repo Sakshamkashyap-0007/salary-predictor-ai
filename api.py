@@ -11,10 +11,14 @@ import numpy as np
 import pandas as pd
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
 
-MODEL_PATH = os.path.join("models", "salary_model.pkl")
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+MODEL_PATH = os.path.join(BASE_DIR, "models", "salary_model.pkl")
+FRONTEND_DIR = os.path.join(BASE_DIR, "frontend")
 
 # ─── LOCATION BOOST (NEW — FIXES YOUR CORE PROBLEM) ──────────────────────────
 LOCATION_BOOST = {
@@ -127,6 +131,13 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+app.mount("/static", StaticFiles(directory=FRONTEND_DIR), name="static")
+
+
+@app.get("/", include_in_schema=False)
+def home():
+    return FileResponse(os.path.join(FRONTEND_DIR, "index.html"))
 
 
 @app.get("/health")
