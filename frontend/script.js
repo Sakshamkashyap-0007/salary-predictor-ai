@@ -101,6 +101,8 @@ function renderChips() {
     text.textContent = skill;
 
     const btn = document.createElement("button");
+    btn.type = "button";
+    btn.setAttribute("aria-label", `Remove ${skill}`);
     btn.textContent = "×";
     btn.onclick = () => removeSkill(skill);
 
