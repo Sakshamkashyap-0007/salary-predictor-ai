@@ -20,7 +20,7 @@ FastAPI backend · scikit-learn RandomForest · Vanilla HTML/CSS/JS frontend.
 ## Project Structure
 
 ```
-salary-predictor/
+salary-predictor-ai/
 ├── run.py              ← Single-command launcher (start here)
 ├── api.py              ← FastAPI backend
 ├── train.py            ← Model training
